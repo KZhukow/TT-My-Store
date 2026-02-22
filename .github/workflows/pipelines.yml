@@ -13,7 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.58.2
-    
+
+    env:
+      BASE_URL: ${{ vars.BASE_URL }}
+      LOCATION: ${{ vars.LOCATION }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
