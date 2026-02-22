@@ -1,0 +1,8 @@
+steps:
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/results_chromium.xml'
+      testRunTitle: 'Test Report'
+      publishRunAttachments: true
+    displayName: 'Publish Reports Chromium'

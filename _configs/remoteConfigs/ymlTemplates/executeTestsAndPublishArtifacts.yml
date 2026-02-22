@@ -1,0 +1,21 @@
+parameters:
+  - name: pwConfigPath
+    type: string
+    default: '_configs/remoteConfigs/remotePlaywright.config.ts'
+
+  - name: testsRunType
+    type: string
+    default: ''
+
+steps:
+  - script: |
+      npx playwright test --config=${{ parameters.pwConfigPath }} --project chromium
+    continueOnError: true
+    displayName: Execute ${{ parameters.testsRunType }} tests chromium
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'test-results'
+      ArtifactName: Test results chromium ${{ parameters.testsRunType }}
+      publishLocation: 'Container'
+    displayName: 'Publish Build Artifacts'

@@ -1,0 +1,23 @@
+parameters:
+  - name: templatesPath
+    type: string
+    default: '../ymlTemplates'
+
+trigger: none
+
+jobs:
+  - job: AutoTesting
+    timeoutInMinutes: 210
+
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.58.23
+
+    steps:
+      - template: ${{ parameters.templatesPath }}/initialization.yml
+
+      - template: ${{ parameters.templatesPath }}/executeTestsAndPublishArtifacts.yml
+        parameters:
+          pwConfigPath: '_configs/remoteConfigs/remotePlaywright.config.ts'
+          testsRunType: 'main'
+
+      - template: ${{ parameters.templatesPath }}/publishTestsResults.yml
